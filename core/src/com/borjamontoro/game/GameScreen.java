@@ -28,6 +28,7 @@ public class GameScreen implements Screen {
     Array<Rectangle> raindrops;
     long lastDropTime;
     int dropsGathered;
+    Texture texture;
 
     public GameScreen(final Drop game) {
         this.game = game;
@@ -35,6 +36,7 @@ public class GameScreen implements Screen {
         // load the images for the droplet and the bucket, 64x64 pixels each
         dropImage = new Texture(Gdx.files.internal("droplet.png"));
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
+        texture=new Texture(Gdx.files.internal("fondo.jpg"));
 
         // load the drop sound effect and the rain background "music"
         dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
@@ -75,8 +77,10 @@ public class GameScreen implements Screen {
         // arguments to clear are the red, green
         // blue and alpha component in the range [0,1]
         // of the color to be used to clear the screen.
-        ScreenUtils.clear(0, 0, 0.2f, 1);
-
+        ScreenUtils.clear(0, 0, 0, 1);
+        game.batch.begin();
+        game.batch.draw(texture,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        game.batch.end();
         // tell the camera to update its matrices.
         camera.update();
 
